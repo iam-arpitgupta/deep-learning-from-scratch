@@ -1,6 +1,7 @@
-import numpy as np
+# back prop in nn 
+import numpy as np 
 
-# Initial inputs
+
 inputs = np.array([1, 2, 3, 4])
 
 # Initial weights and biases
@@ -12,15 +13,15 @@ weights = np.array([
 
 biases = np.array([0.1, 0.2, 0.3])
 
-# Learning rate
 learning_rate = 0.001
 
-# ReLU activation function and its derivative
 def relu(x):
-    return np.maximum(0, x)
+    return np.maximum(0 ,x)
 
 def relu_derivative(x):
-    return np.where(x > 0, 1, 0)
+    return np.where(x > 0 ,1 , 0)
+
+
 
 # Training loop
 for iteration in range(200):
@@ -32,35 +33,28 @@ for iteration in range(200):
     # Calculate loss
     loss = y ** 2
 
-    # Backward pass
-    # Gradient of loss with respect to output y
-    dL_dy = 2 * y
 
-    # Gradient of y with respect to a
-    dy_da = np.ones_like(a)
+# back prop in multi - layer nn and with multiple inputs 
+# weights value 
+dl_dz = np.array([[1,1,1],
+         [2,2,2],
+         [3,3,3]])
 
-    # Gradient of loss with respect to a
-    dL_da = dL_dy * dy_da
+inputs = np.array([1,2,3,4])
 
-    # Gradient of a with respect to z (ReLU derivative)
-    da_dz = relu_derivative(z)
+dweights = np.dot(inputs.T , dl_dz)
 
-    # Gradient of loss with respect to z
-    dL_dz = dL_da * da_dz
+# bias 
+biases = np.array([1,2,3])
 
-    # Gradient of z with respect to weights and biases
-    dL_dW = np.outer(dL_dz, inputs)
-    dL_db = dL_dz
+dbiases = np.sum(dl_dz , axis =0 , keep_dims = True)
 
-    # Update weights and biases
-    weights -= learning_rate * dL_dW
-    biases -= learning_rate * dL_db
+# Initial weights and biases
+weights = np.array([
+    [0.1, 0.2, 0.3, 0.4],
+    [0.5, 0.6, 0.7, 0.8],
+    [0.9, 1.0, 1.1, 1.2]
+])
 
-    # Print the loss every 20 iterations
-    if iteration % 20 == 0:
-        print(f"Iteration {iteration}, Loss: {loss}")
-
-# Final weights and biases
-print("Final weights:\n", weights)
-print("Final biases:\n", biases)
-
+# gradient of loss wrt to inputs
+dinputs = np.dot(dl_dz , weights . T)
