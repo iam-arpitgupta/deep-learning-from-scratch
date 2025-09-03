@@ -58,3 +58,45 @@ weights = np.array([
 
 # gradient of loss wrt to inputs
 dinputs = np.dot(dl_dz , weights . T)
+
+
+# using the backward func 
+import numpy as np
+
+class LayerDense:
+    def __init__(self, n_inputs, n_neurons):
+        self.weights = 0.01 * np.random.randn(n_inputs, n_neurons)
+        self.biases = np.zeros((1, n_neurons))
+    
+    def forward(self, inputs):
+        self.inputs = inputs
+        self.output = np.dot(inputs, self.weights) + self.biases
+        return self.output
+    
+    def backward(self, dl_dz):
+        self.dweights = np.dot(inputs.T , dl_dz)
+        self.dbiases = np.sum(dl_dz , axis =0 , keep_dims = True)
+        self.dinputs = np.dot(dl_dz , weights . T)
+
+
+# backeard in relu activation 
+class ReLUActivation:
+    def forward(self, inputs):
+        self.inputs = inputs 
+        self.output = np.maximum(0, inputs)
+        return self.output
+    
+    def backward(self ,dvalues):
+        self.dinputs = dvalues.copy()
+        # if the val of inputs < 0 then it is == 0
+        self.dinputs[self.inputs <= 0 ] = 0
+
+class SoftmaxActivation:
+    def forward(self, inputs):
+        exp_values = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
+        probabilities = exp_values / np.sum(exp_values, axis=1, keepdims=True)
+        self.output = probabilities
+        return self.output
+
+
+

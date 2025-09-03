@@ -19,7 +19,7 @@ c = - np.log(B)
 print(np.mean(c))
 
 
-# class 
+# class to cal the mean od the cross entropy loss 
 class Loss:
     def cal(self,output,y):
         sample_loss = self.forward(output,y)
@@ -27,6 +27,7 @@ class Loss:
 
         return data_loss
     
+# class fot he cross entropy loss 
 class CrossEntropyLoss(Loss):
     def forward(self,y_pred, y_true):
         sample = len(y_pred)
