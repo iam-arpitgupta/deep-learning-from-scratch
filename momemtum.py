@@ -1,3 +1,5 @@
+# we can see that there is a surge of accuracy using this as compared to GD 
+
 import numpy as np
 
 class Optimized_Mom_GD:
