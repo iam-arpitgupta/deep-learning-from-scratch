@@ -71,7 +71,7 @@ class Softmax_crossEntropy:
 
         self.dinputs = dvalues.copy()
         # range[samples] -> no of total batches or row in the matrix 
-        self.dinputs = [range(sample) , y_true] -= 1
+        self.dinputs[range(sample) , y_true] -= 1
         # noramilze gradients
         self.dinputs = self.dinputs / range(sample)
 
